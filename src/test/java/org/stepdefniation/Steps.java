@@ -1,6 +1,7 @@
 package org.stepdefniation;
 
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -38,14 +39,28 @@ public class Steps {
 	
 	@When("The user fill in the valid customer details")
 	public void the_user_fill_in_the_valid_customer_details(DataTable customer) {
-	    List<String> customerlist = customer.asList(String.class);
+	    /*List<String> customerlist = customer.asList(String.class);
 	    driver.findElement(By.xpath("//label[text()='Done']")).click();
 	    driver.findElement(By.id("fname")).sendKeys(customerlist.get(0));
 	    driver.findElement(By.id("lname")).sendKeys(customerlist.get(1));
 	    driver.findElement(By.id("email")).sendKeys(customerlist.get(2));
 	    driver.findElement(By.name("addr")).sendKeys(customerlist.get(3));
 	    driver.findElement(By.name("telephoneno")).sendKeys(customerlist.get(4));;
+	}*/
+	
+	
+	Map<String,String>customermap=customer.asMap(String.class,String.class);
+	driver.findElement(By.xpath("//label[text()='Done']")).click();
+    driver.findElement(By.id("fname")).sendKeys(customermap.get("fname"));
+    driver.findElement(By.id("lname")).sendKeys(customermap.get("lname"));
+    driver.findElement(By.id("email")).sendKeys(customermap.get("email"));
+    driver.findElement(By.name("addr")).sendKeys(customermap.get("address"));
+    driver.findElement(By.name("telephoneno")).sendKeys(customermap	.get("phnum"));
+
+	
 	}
+
+
 
 	@When("The user clicks the submit button")
 	public void the_user_clicks_the_submit_button() {
